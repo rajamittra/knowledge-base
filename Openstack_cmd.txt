@@ -1,0 +1,1 @@
+openstack image create --container-format bare --disk-format qcow2 --file xenial-server-cloudimg-amd64-disk1.img Ubuntu-16.04-x86_64
