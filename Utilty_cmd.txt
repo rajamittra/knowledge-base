@@ -1,0 +1,3 @@
+Print config files with duplicate items
+---------------------------------------
+cat input_file | awk -F'=' '{gsub(/^[ \t]+|[ \t]+$/,"",$1);print $1}' | sort | uniq -cd
