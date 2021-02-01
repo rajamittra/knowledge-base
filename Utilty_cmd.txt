@@ -1,3 +1,5 @@
 Print config files with duplicate items
 ---------------------------------------
 cat input_file | awk -F'=' '{gsub(/^[ \t]+|[ \t]+$/,"",$1);print $1}' | sort | uniq -cd
+
+ grep -rni 'save(' | grep -v 'mme_ue_s1ap_id\|Hop-by-Hop\|End-to-End\|enb_ue_s1ap_id'
