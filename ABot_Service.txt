@@ -1,0 +1,17 @@
+
+ systemctl is-active abot-ui
+ systemctl is-active abot-archive.service
+ systemctl is-active rabbitmq-server.service
+ systemctl is-active mongodb.service
+ systemctl is-active grafana-server.service
+ systemctl is-active prometheus.service
+
+ systemctl is-active abot-analytics.service
+ systemctl is-active rabbitmq-server.service
+ systemctl is-active mongodb.service
+ systemctl is-active elasticsearch.service
+ systemctl is-active kibana.service
+ systemctl is-active logstash.service
+
+
+

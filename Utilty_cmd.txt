@@ -5,3 +5,10 @@ cat input_file | awk -F'=' '{gsub(/^[ \t]+|[ \t]+$/,"",$1);print $1}' | sort | u
  grep -rni 'save(' | grep -v 'mme_ue_s1ap_id\|Hop-by-Hop\|End-to-End\|enb_ue_s1ap_id'
  
 grep 'data adapter="EPC" id=' EPC_MESSAGES.xml | sed -e 's/.*id=\"//' -e 's/\".*//'
+
+###TAGS
+grep -rni '@' | awk -F '@' '{print $2}' | sort
+
+find /etc/rebaca-test-suite/featureFiles/3GPP-23401-4G/ -type f | wc -l
+find /etc/rebaca-test-suite/featureFiles/3GPP-23502-5G/ -type f | wc -l
+find /etc/rebaca-test-suite/featureFiles/3GPP-38401-5G/ -type f | wc -l
