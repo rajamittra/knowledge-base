@@ -15,3 +15,19 @@
 
 
 
+ sudo systemctl is-active open5gs-mmed
+ sudo systemctl is-active open5gs-sgwcd
+ sudo systemctl is-active open5gs-smfd
+ sudo systemctl is-active open5gs-amfd
+ sudo systemctl is-active open5gs-sgwud
+ sudo systemctl is-active open5gs-upfd
+ sudo systemctl is-active open5gs-hssd
+ sudo systemctl is-active open5gs-pcrfd
+ sudo systemctl is-active open5gs-nrfd
+ sudo systemctl is-active open5gs-ausfd
+ sudo systemctl is-active open5gs-udmd
+ sudo systemctl is-active open5gs-pcfd
+ sudo systemctl is-active open5gs-nssfd
+ sudo systemctl is-active open5gs-udrd
+ sudo systemctl is-active open5gs-webui
+ 
