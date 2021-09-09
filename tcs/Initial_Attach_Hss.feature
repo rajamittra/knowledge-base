@@ -1,4 +1,4 @@
-@initial-attach-sgw @2-attach-procedure-for-eps-services @23401-4g
+@initial-attach-hss @2-attach-procedure-for-eps-services @23401-4g
 
 Feature: Attach procedure for EPS services
 
@@ -32,139 +32,41 @@ Feature: Attach procedure for EPS services
       | concurrency            | 10                     |
       | load_percentage_factor | 100                    |
 
-	##S6A CAPEX
     When I send DIAMETER message DIA_CAPABILITIES_EXCHANGE_REQUEST on interface S6A with the following details from node MME1 to HSS1:
-      | parameter                                          | value                                  |
-      | Hop-by-Hop Identifier                              | 123                                    |
-      | End-to-End Identifier                              | 456                                    |
-      | Origin-Host                                        | {abotprop.SUT.S6A.CAPEX.ORIGIN.HOST}    |
-      | Origin-Realm                                       | {abotprop.SUT.S6A.CAPEX.ORIGIN.REALM}   |
-      | Origin-State-Id                                    | 1584110503                             |
-      | Host-IP-Address                                    | {abotprop.SUT.S6A.CAPEX.ORIGIN.HOST.IP} |
-      | Vendor-Id                                          | 0                                      |
-      | Product-Name                                       | freeDiameter                           |
-      | Firmware-Revision                                  | 10200                                  |
-      | Inband-Security-Id                                 | 0                                      |
-      | Vendor-Specific-Application-Id.Vendor-Id           | {abotprop.SUT.3GPP.VENDOR.ID}          |
-      | Vendor-Specific-Application-Id.Auth-Application-Id | {abotprop.SUT.3GPP.S6A.APPID}           |
-      | Supported-Vendor-Id                                | {abotprop.SUT.3GPP.VENDOR.ID}          |
-
-    Then I receive and validate DIAMETER message DIA_CAPABILITIES_EXCHANGE_REQUEST on interface S6A with the following details on node HSS1 from MME1:
-      | parameter                                          | value                                               |
-      | Hop-by-Hop Identifier                              | save(HOP_BY_HOP_ID)                                 |
-      | End-to-End Identifier                              | save(END_TO_END_ID)                                 |
-      | Origin-Host                                        | {string:eq}({abotprop.SUT.S6A.CAPEX.ORIGIN.HOST})    |
-      | Origin-Realm                                       | {string:eq}({abotprop.SUT.S6A.CAPEX.ORIGIN.REALM})   |
-      | Origin-State-Id                                    | {integer:eq}(1584110503)                            |
-      | Host-IP-Address                                    | {string:eq}({abotprop.SUT.S6A.CAPEX.ORIGIN.HOST.IP}) |
-      | Vendor-Id                                          | {integer:eq}(0)                                     |
-      | Product-Name                                       | {string:eq}(freeDiameter)                           |
-      | Firmware-Revision                                  | {integer:eq}(10200)                                 |
-      | Inband-Security-Id                                 | {integer:eq}(0)                                     |
-      | Vendor-Specific-Application-Id.Vendor-Id           | {integer:eq}({abotprop.SUT.3GPP.VENDOR.ID})         |
-      | Vendor-Specific-Application-Id.Auth-Application-Id | {integer:eq}({abotprop.SUT.3GPP.S6A.APPID})          |
-      | Supported-Vendor-Id                                | {integer:eq}({abotprop.SUT.3GPP.VENDOR.ID})         |
-
-    When I send DIAMETER message DIA_CAPABILITIES_EXCHANGE_ANSWER on interface S6A with the following details from node HSS1 to MME1:
-      | parameter                                          | value                                  |
-      | Hop-by-Hop Identifier                              | $(HOP_BY_HOP_ID)                       |
-      | End-to-End Identifier                              | $(END_TO_END_ID)                       |
-      | Result-Code                                        | {abotprop.SUT.3GPP.S6A.DIA_RESULT_CODE} |
-      | Origin-Host                                        | {abotprop.SUT.S6A.CAPEX.DEST.HOST}      |
-      | Origin-Realm                                       | {abotprop.SUT.S6A.CAPEX.DEST.REALM}     |
-      | Origin-State-Id                                    | 1584110486                             |
-      | Host-IP-Address                                    | {abotprop.SUT.S6A.CAPEX.DEST.HOST.IP}   |
-      | Vendor-Id                                          | 0                                      |
-      | Product-Name                                       | freeDiameter                           |
-      | Firmware-Revision                                  | 10200                                  |
-      | Inband-Security-Id                                 | 0                                      |
-      | Vendor-Specific-Application-Id.Vendor-Id           | {abotprop.SUT.3GPP.VENDOR.ID}          |
-      | Vendor-Specific-Application-Id.Auth-Application-Id | {abotprop.SUT.3GPP.S6A.APPID}           |
-      | Supported-Vendor-Id                                | {abotprop.SUT.3GPP.VENDOR.ID}          |
-
+      | parameter                                          | value                                 |
+      | Hop-by-Hop Identifier                              | 1                                     |
+      | End-to-End Identifier                              | 2                                     |
+      | Origin-Host                                        | abot-volte-pro3.openair4G.eur         |
+      | Origin-Realm                                       | openair4G.eur                         |
+      | Origin-State-Id                                    | 1562601028                            |
+      | Host-IP-Address                                    | {abotprop.ABOT.SecureShell.IPAddress} |
+      | Vendor-Id                                          | 10415                                 |
+      | Product-Name                                       | Diameter                          |
+      | Firmware-Revision                                  | 10200                                 |
+      | Inband-Security-Id                                 | 0                                     |
+      | Vendor-Specific-Application-Id.Vendor-Id           | 10415                                 |
+      | Vendor-Specific-Application-Id.Auth-Application-Id | 16777251                              |
+      | Supported-Vendor-Id                                | 10415                                 |
+		
+           
     Then I receive and validate DIAMETER message DIA_CAPABILITIES_EXCHANGE_ANSWER on interface S6A with the following details on node MME1 from HSS1:
-      | parameter                                          | value                                                |
-      | Hop-by-Hop Identifier                              | save(HOP_BY_HOP_ID)                                  |
-      | End-to-End Identifier                              | save(END_TO_END_ID)                                  |
-      | Result-Code                                        | {integer:eq}({abotprop.SUT.3GPP.S6A.DIA_RESULT_CODE}) |
-      | Origin-Host                                        | {string:eq}({abotprop.SUT.S6A.CAPEX.DEST.HOST})       |
-      | Origin-Realm                                       | {string:eq}({abotprop.SUT.S6A.CAPEX.DEST.REALM})      |
-      | Origin-State-Id                                    | {integer:eq}(1584110486)                             |
-      | Host-IP-Address                                    | {string:eq}({abotprop.SUT.S6A.CAPEX.DEST.HOST.IP})    |
-      | Vendor-Id                                          | {integer:eq}(0)                                      |
-      | Product-Name                                       | {string:eq}(freeDiameter)                            |
-      | Firmware-Revision                                  | {integer:eq}(10200)                                  |
-      | Inband-Security-Id                                 | {integer:eq}(0)                                      |
-      | Vendor-Specific-Application-Id.Vendor-Id           | {integer:eq}({abotprop.SUT.3GPP.VENDOR.ID})          |
-      | Vendor-Specific-Application-Id.Auth-Application-Id | {integer:eq}({abotprop.SUT.3GPP.S6A.APPID})           |
-      | Supported-Vendor-Id                                | {integer:eq}({abotprop.SUT.3GPP.VENDOR.ID})          |
+      | parameter                                          | value                                          |
+      | Hop-by-Hop Identifier                              | {integer:eq}(1)                                |
+      | End-to-End Identifier                              | {integer:eq}(2)                                |
+      | Result-Code                                        | {integer:eq}(2001)                             |
+      | Origin-Host                                        | save(ORIGIN_HOST)                              |
+      | Origin-Realm                                       | {string:eq}(epc.mnc085.mcc405.3gppnetwork.org) |
+      | Origin-State-Id                                    | save(Origin_State_Id)                          |
+      | Host-IP-Address                                    | save(MME_IP)                                   |
+      | Vendor-Id                                          | {integer:eq}(10415)                            |
+      | Product-Name                                       | {string:eq}(Diameter)                      |
+      | Firmware-Revision                                  | {integer:eq}(10200)                            |
+      | Inband-Security-Id                                 | {integer:eq}(0)                                |
+      | Vendor-Specific-Application-Id.Vendor-Id           | {integer:eq}(10415)                            |
+      | Vendor-Specific-Application-Id.Auth-Application-Id | {integer:eq}(16777251)                         |
+      | Supported-Vendor-Id                                | {integer:eq}(10415)                            |
+					
 
-	##Gx CAPEX
-    When I send DIAMETER message DIA_CAPABILITIES_EXCHANGE_REQUEST on interface GX with the following details from node PCRF1 to PGW1:
-      | parameter                                          | value                                  |
-      | Hop-by-Hop Identifier                              | 123                                    |
-      | End-to-End Identifier                              | 456                                    |
-      | Origin-Host                                        | {abotprop.SUT.GX.CAPEX.ORIGIN.HOST}    |
-      | Origin-Realm                                       | {abotprop.SUT.GX.CAPEX.ORIGIN.REALM}   |
-      | Origin-State-Id                                    | 1584110503                             |
-      | Host-IP-Address                                    | {abotprop.SUT.GX.CAPEX.ORIGIN.HOST.IP} |
-      | Vendor-Id                                          | 0                                      |
-      | Product-Name                                       | freeDiameter                           |
-      | Firmware-Revision                                  | 10200                                  |
-      | Inband-Security-Id                                 | 0                                      |
-      | Vendor-Specific-Application-Id.Vendor-Id           | {abotprop.SUT.3GPP.VENDOR.ID}          |
-      | Vendor-Specific-Application-Id.Auth-Application-Id | {abotprop.SUT.3GPP.GX.APPID}           |
-      | Supported-Vendor-Id                                | {abotprop.SUT.3GPP.VENDOR.ID}          |
-
-    Then I receive and validate DIAMETER message DIA_CAPABILITIES_EXCHANGE_REQUEST on interface GX with the following details on node PGW1 from PCRF1:
-      | parameter                                          | value                                               |
-      | Hop-by-Hop Identifier                              | save(HOP_BY_HOP_ID)                                 |
-      | End-to-End Identifier                              | save(END_TO_END_ID)                                 |
-      | Origin-Host                                        | {string:eq}({abotprop.SUT.GX.CAPEX.ORIGIN.HOST})    |
-      | Origin-Realm                                       | {string:eq}({abotprop.SUT.GX.CAPEX.ORIGIN.REALM})   |
-      | Origin-State-Id                                    | {integer:eq}(1584110503)                            |
-      | Host-IP-Address                                    | {string:eq}({abotprop.SUT.GX.CAPEX.ORIGIN.HOST.IP}) |
-      | Vendor-Id                                          | {integer:eq}(0)                                     |
-      | Product-Name                                       | {string:eq}(freeDiameter)                           |
-      | Firmware-Revision                                  | {integer:eq}(10200)                                 |
-      | Inband-Security-Id                                 | {integer:eq}(0)                                     |
-      | Vendor-Specific-Application-Id.Vendor-Id           | {integer:eq}({abotprop.SUT.3GPP.VENDOR.ID})         |
-      | Vendor-Specific-Application-Id.Auth-Application-Id | {integer:eq}({abotprop.SUT.3GPP.GX.APPID})          |
-      | Supported-Vendor-Id                                | {integer:eq}({abotprop.SUT.3GPP.VENDOR.ID})         |
-
-    When I send DIAMETER message DIA_CAPABILITIES_EXCHANGE_ANSWER on interface GX with the following details from node PGW1 to PCRF1:
-      | parameter                                          | value                                  |
-      | Hop-by-Hop Identifier                              | $(HOP_BY_HOP_ID)                       |
-      | End-to-End Identifier                              | $(END_TO_END_ID)                       |
-      | Result-Code                                        | {abotprop.SUT.3GPP.GX.DIA_RESULT_CODE} |
-      | Origin-Host                                        | {abotprop.SUT.GX.CAPEX.DEST.HOST}      |
-      | Origin-Realm                                       | {abotprop.SUT.GX.CAPEX.DEST.REALM}     |
-      | Origin-State-Id                                    | 1584110486                             |
-      | Host-IP-Address                                    | {abotprop.SUT.GX.CAPEX.DEST.HOST.IP}   |
-      | Vendor-Id                                          | 0                                      |
-      | Product-Name                                       | freeDiameter                           |
-      | Firmware-Revision                                  | 10200                                  |
-      | Inband-Security-Id                                 | 0                                      |
-      | Vendor-Specific-Application-Id.Vendor-Id           | {abotprop.SUT.3GPP.VENDOR.ID}          |
-      | Vendor-Specific-Application-Id.Auth-Application-Id | {abotprop.SUT.3GPP.GX.APPID}           |
-      | Supported-Vendor-Id                                | {abotprop.SUT.3GPP.VENDOR.ID}          |
-
-    Then I receive and validate DIAMETER message DIA_CAPABILITIES_EXCHANGE_ANSWER on interface GX with the following details on node PCRF1 from PGW1:
-      | parameter                                          | value                                                |
-      | Hop-by-Hop Identifier                              | save(HOP_BY_HOP_ID)                                  |
-      | End-to-End Identifier                              | save(END_TO_END_ID)                                  |
-      | Result-Code                                        | {integer:eq}({abotprop.SUT.3GPP.GX.DIA_RESULT_CODE}) |
-      | Origin-Host                                        | {string:eq}({abotprop.SUT.GX.CAPEX.DEST.HOST})       |
-      | Origin-Realm                                       | {string:eq}({abotprop.SUT.GX.CAPEX.DEST.REALM})      |
-      | Origin-State-Id                                    | {integer:eq}(1584110486)                             |
-      | Host-IP-Address                                    | {string:eq}({abotprop.SUT.GX.CAPEX.DEST.HOST.IP})    |
-      | Vendor-Id                                          | {integer:eq}(0)                                      |
-      | Product-Name                                       | {string:eq}(freeDiameter)                            |
-      | Firmware-Revision                                  | {integer:eq}(10200)                                  |
-      | Inband-Security-Id                                 | {integer:eq}(0)                                      |
-      | Vendor-Specific-Application-Id.Vendor-Id           | {integer:eq}({abotprop.SUT.3GPP.VENDOR.ID})          |
-      | Vendor-Specific-Application-Id.Auth-Application-Id | {integer:eq}({abotprop.SUT.3GPP.GX.APPID})           |
-      | Supported-Vendor-Id                                | {integer:eq}({abotprop.SUT.3GPP.VENDOR.ID})          |
 
     When I send S1AP message S1_SETUP_REQ on interface S1-MME with the following details from node eNodeB1 to MME1:
       | parameter                                                | value                               |
@@ -628,7 +530,7 @@ Feature: Attach procedure for EPS services
       | header.seq_number                                             | 100                                        |
       | recovery                                                      | 0                                          |
       | imsi                                                          | $(IMSI)                                    |
-      | msisdn                                                        | incr(919600000001,1)                     |
+      | msisdn                                                        | incr(22331010101010,1)                     |
       | meid                                                          | incr(123456789012345,1)                    |
       | serving_network.mcc                                           | {abotprop.SUT.MCC}                         |
       | serving_network.mnc                                           | {abotprop.SUT.MNC}                         |
@@ -655,18 +557,23 @@ Feature: Attach procedure for EPS services
       | lapi                                                          | 0                                          |
       | bearer_contexts_to_create.0.eps_bearer_id                     | {abotprop.SUT.3GPP.EPS_BEARER_ID}          |
       | bearer_contexts_to_create.0.bearer_qos.pvi                    | 0                                          |
-      | bearer_contexts_to_create.0.bearer_qos.pl                     | 7                                         |
-      | bearer_contexts_to_create.0.bearer_qos.pci                    | 0                                          |
+      | bearer_contexts_to_create.0.bearer_qos.pl                     | 15                                         |
+      | bearer_contexts_to_create.0.bearer_qos.pci                    | 1                                          |
       | bearer_contexts_to_create.0.bearer_qos.qci                    | {abotprop.SUT.3GPP.BEARER_QCI}             |
       | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_ul        | {abotprop.SUT.MAX_BIT_RATE_UL}             |
       | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_dl        | {abotprop.SUT.MAX_BIT_RATE_DL}             |
       | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_ul | {abotprop.SUT.GUARANTEED_BIT_RATE_UL}      |
       | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_dl | {abotprop.SUT.GUARANTEED_BIT_RATE_DL}      |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.interface_type          | 7                                             |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.ipv4_flag               | 1                                             |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.ipv6_flag               | 0                                             |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.teid                    | incr(3,1)                                     |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.ipv4_add                | {abotprop.SUT.IPV4_ADDRESS}                   |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.interface_type | 0                                          |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.ipv4_flag      | 1                                          |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.ipv6_flag      | 0                                          |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.teid           | incr(1,8)                                  |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.ipv4_add       | {abotprop.SUT.IPV4_ADDRESS}                |
+      | bearer_contexts_to_create.0.s11u_mme.fq_teid.interface_type   | 38                                         |
+      | bearer_contexts_to_create.0.s11u_mme.fq_teid.ipv4_flag        | 1                                          |
+      | bearer_contexts_to_create.0.s11u_mme.fq_teid.ipv6_flag        | 0                                          |
+      | bearer_contexts_to_create.0.s11u_mme.fq_teid.teid             | incr(1,8)                                  |
+      | bearer_contexts_to_create.0.s11u_mme.fq_teid.ipv4_add         | {abotprop.SUT.IPV4_ADDRESS}                |
       | user_location_info.uli_flags                                  | 10                                         |
       | user_location_info.ecgi.plmn_identity.mcc                     | {abotprop.SUT.MCC}                         |
       | user_location_info.ecgi.plmn_identity.mnc                     | {abotprop.SUT.MNC}                         |
@@ -714,11 +621,11 @@ Feature: Attach procedure for EPS services
       | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_dl        | {string:eq}({abotprop.SUT.MAX_BIT_RATE_DL})             |
       | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_ul | {string:eq}({abotprop.SUT.GUARANTEED_BIT_RATE_UL})      |
       | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_dl | {string:eq}({abotprop.SUT.GUARANTEED_BIT_RATE_DL})      |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.interface_type          | {integer:eq}(7)                                             |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.ipv4_flag               | {integer:eq}(1)                                             |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.ipv6_flag               | {integer:eq}(0)                                             |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.teid                    | {integer:eq}(incr(3,1))                                     |
-      | pgw_s5_s8_address_cntrl_plane.fq_teid.ipv4_add                | {string:eq}({abotprop.SUT.IPV4_ADDRESS})                    |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.interface_type | {string:eq}(0)                                          |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.ipv4_flag      | {string:eq}(1)                                          |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.ipv6_flag      | {string:eq}(0)                                          |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.teid           | save(GTPV1U_DL_TEID_ENB_S1U)                            |
+      | bearer_contexts_to_create.0.s1u_enodeb.fq_teid.ipv4_add       | {string:eq}({abotprop.SUT.IPV4_ADDRESS})                |
 
     When I send GTPV2C message GTPV2C_CREATE_SESSION_REQUEST on interface S5-S8 with the following details from node SGW1 to PGW1:
       | parameter                                                         | value                                      |
@@ -727,7 +634,7 @@ Feature: Attach procedure for EPS services
       | header.seq_number                                                 | {abotprop.SUT.GTPV2.HEADER.SEQ.NUM.200}    |
       | recovery                                                          | {abotprop.SUT.GTPV2.RECV.RESTART.COUNTER}  |
       | imsi                                                              | $(IMSI)                                    |
-      | msisdn                                                            | incr({abotprop.SUT.MSISDN.START},1)                     |
+      | msisdn                                                            | incr(22331010101010,1)                     |
       | meid                                                              | incr(123456789012345,1)                    |
       | serving_network.mcc                                               | {abotprop.SUT.MCC}                         |
       | serving_network.mnc                                               | {abotprop.SUT.MNC}                         |
@@ -1374,7 +1281,7 @@ Feature: Attach procedure for EPS services
       | header.seq_number                                          | 400                                        |
       | cause.cause_value                                          | 16                                         |
       | cause.cause_flags                                          | 0                                          |
-      | msisdn                                                     | incr({abotprop.SUT.MSISDN.START},1)                     |
+      | msisdn                                                     | incr(22331010101010,1)                     |
       | linked.eps_bearer_id                                       | {abotprop.SUT.3GPP.LINKED.EPS_BEARER_ID1}  |
       | ambr.apn_ambr_uplink                                       | {abotprop.SUT.MAX_BIT_RATE_UL}             |
       | ambr.apn_ambr_downlink                                     | {abotprop.SUT.MAX_BIT_RATE_DL}             |
