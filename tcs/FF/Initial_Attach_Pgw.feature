@@ -1,4 +1,4 @@
-@initial-attach-sgw @2-attach-procedure-for-eps-services @23401-4g
+@initial-attach-pgw @2-attach-procedure-for-eps-services @23401-4g
 
 Feature: Attach procedure for EPS services
 
