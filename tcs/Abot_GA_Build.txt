@@ -1,3 +1,9 @@
 Dated: 23-07-2021
 wget -q --auth-no-challenge --header=Accept:application/octet-stream https://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:@api.github.com/repos/RebacaInc/abot/releases/assets/40846868 -O abot-volte-pro_8.30.b100f_18.04_all.tar.gz
 wget -q --auth-no-challenge --header=Accept:application/octet-stream https://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:@api.github.com/repos/RebacaInc/abot/releases/assets/40846912 -O abot-analytics_3.30.b100f_18.04_all.tar.gz
+
+
+Dated: 27-09-2021
+wget -q --auth-no-challenge --header=Accept:application/octet-stream https://ghp_4CsbSYsFnt8pGVBOTo7jDCbGB5rkreplace:@api.github.com/repos/RebacaInc/abot/releases/assets/45555501 -O abot-volte-pro_8.39.6e555_18.04_all.tar.gz
+wget -q --auth-no-challenge --header=Accept:application/octet-stream https://ghp_4CsbSYsFnt8pGVBOTo7jDCbGB5rkreplace:@api.github.com/repos/RebacaInc/abot/releases/assets/45555585 -O abot-analytics_3.39.6e555_18.04_all.tar.gz
+91364pOB
