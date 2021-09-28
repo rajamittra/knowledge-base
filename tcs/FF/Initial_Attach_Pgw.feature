@@ -32,7 +32,7 @@ Feature: Attach procedure for EPS services
       | concurrency            | 10                     |
       | load_percentage_factor | 100                    |
 
-    ##S6A CAPEX
+##S6A CAPEX
     When I send DIAMETER message DIA_CAPABILITIES_EXCHANGE_REQUEST on interface S6A with the following details from node MME1 to HSS1:
       | parameter                                          | value                                   |
       | Hop-by-Hop Identifier                              | 123                                     |
@@ -99,7 +99,7 @@ Feature: Attach procedure for EPS services
       | Vendor-Specific-Application-Id.Auth-Application-Id | {integer:eq}({abotprop.SUT.3GPP.S6A.APPID})           |
       | Supported-Vendor-Id                                | {integer:eq}({abotprop.SUT.3GPP.VENDOR.ID})           |
 
-    ##Gx CAPEX
+##Gx CAPEX
     When I send DIAMETER message DIA_CAPABILITIES_EXCHANGE_REQUEST on interface GX with the following details from node PCRF1 to PGW1:
       | parameter                                          | value                                  |
       | Hop-by-Hop Identifier                              | 123                                    |
@@ -704,8 +704,8 @@ Feature: Attach procedure for EPS services
       | lapi                                                          | {string:eq}(0)                                          |
       | bearer_contexts_to_create.0.eps_bearer_id                     | {string:eq}({abotprop.SUT.3GPP.EPS_BEARER_ID})          |
       | bearer_contexts_to_create.0.bearer_qos.pvi                    | {string:eq}(0)                                          |
-      | bearer_contexts_to_create.0.bearer_qos.pl                     | {string:eq}(15)                                         |
-      | bearer_contexts_to_create.0.bearer_qos.pci                    | {string:eq}(1)                                          |
+      | bearer_contexts_to_create.0.bearer_qos.pl                     | {string:eq}(7)                                          |
+      | bearer_contexts_to_create.0.bearer_qos.pci                    | {string:eq}(0)                                          |
       | bearer_contexts_to_create.0.bearer_qos.qci                    | save(QCI)                                               |
       | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_ul        | {string:eq}({abotprop.SUT.MAX_BIT_RATE_UL})             |
       | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_dl        | {string:eq}({abotprop.SUT.MAX_BIT_RATE_DL})             |
@@ -718,108 +718,108 @@ Feature: Attach procedure for EPS services
       | pgw_s5_s8_address_cntrl_plane.fq_teid.ipv4_add                | {string:eq}({abotprop.SUT.IPV4_ADDRESS})                |
 
     When I send GTPV2C message GTPV2C_CREATE_SESSION_REQUEST on interface S5-S8 with the following details from node SGW1 to PGW1:
-      | parameter                                                         | value                                      |
-      | header.message_type                                               | 32                                         |
-      | header.teid                                                       | 0                                          |
-      | header.seq_number                                                 | {abotprop.SUT.GTPV2.HEADER.SEQ.NUM.200}    |
-      | recovery                                                          | {abotprop.SUT.GTPV2.RECV.RESTART.COUNTER}  |
-      | imsi                                                              | $(IMSI)                                    |
-      | msisdn                                                            | incr({abotprop.SUT.MSISDN.START},1)        |
-      | meid                                                              | incr(123456789012345,1)                    |
-      | serving_network.mcc                                               | {abotprop.SUT.MCC}                         |
-      | serving_network.mnc                                               | {abotprop.SUT.MNC}                         |
-      | rat_type                                                          | {abotprop.SUT.GTPV2.RAT.TYPE.EUTRAN}       |
-      | indication                                                        | {abotprop.SUT.GTPV2_INDICATION}            |
-      | sender_fteid_cntrl_plane.fq_teid.interface_type                   | 6                                          |
-      | sender_fteid_cntrl_plane.fq_teid.ipv4_flag                        | {abotprop.SUT.GTPV2.IPV4.PRES}             |
-      | sender_fteid_cntrl_plane.fq_teid.ipv6_flag                        | {abotprop.SUT.GTPV2.IPV6.ABS}              |
-      | sender_fteid_cntrl_plane.fq_teid.teid                             | incr(100,1)                                |
-      | sender_fteid_cntrl_plane.fq_teid.ipv4_add                         | {abotprop.SUT.IPV4_ADDRESS}                |
-      | apn                                                               | {abotprop.SUT.3GPP.APN}                    |
-      | selection_mode                                                    | {abotprop.SUT.GTPV2.NET.PROV.APN.SNV}      |
-      | pdn_type                                                          | {abotprop.SUT.3GPP.PDN_TYPE}               |
-      | pdn_address_allocation.pdn_type                                   | {abotprop.SUT.3GPP.PDN_TYPE}               |
-      | pdn_address_allocation.pdn_address_and_prefix                     | {abotprop.SUT.PDN_ADDRESS}                 |
-      | maxm_apn_restriction.apn_restriction_value                        | {abotprop.SUT.GTPV2.APN.REST.VALUE.PUBLIC} |
-      | ambr.apn_ambr_uplink                                              | {abotprop.SUT.MAX_BIT_RATE_UL}             |
-      | ambr.apn_ambr_downlink                                            | {abotprop.SUT.MAX_BIT_RATE_DL}             |
-      | linked.eps_bearer_id                                              | {abotprop.SUT.3GPP.LINKED.EPS_BEARER_ID1}  |
-      | charging_char                                                     | {abotprop.SUT.3GPP.GTPV2C.CHARGING_CHAR}   |
-      | protocol_config_options                                           | {abotprop.SUT.GTPV2.PCO}                   |
-      | ue_timezone.time_zone                                             | {abotprop.SUT.GTPV2.UE.TIMEZONE}           |
-      | ue_timezone.daylight_saving_time                                  | {abotprop.SUT.UE.DAYLIGHT.SAVING.TIME}     |
-      | lapi                                                              | {abotprop.SUT.GTPV2.LAPI}                  |
-      | bearer_contexts_to_create.0.eps_bearer_id                         | {abotprop.SUT.EBI.0.EPS.BEAR.ID}           |
-      | bearer_contexts_to_create.0.bearer_qos.pvi                        | {abotprop.SUT.GTPV2.BEARER_QOS.PVI}        |
-      | bearer_contexts_to_create.0.bearer_qos.pl                         | {abotprop.SUT.GTPV2.PGW.BEARER_QOS.PL}     |
-      | bearer_contexts_to_create.0.bearer_qos.pci                        | {abotprop.SUT.GTPV2.BER.CTXT.QOS.PCI}      |
-      | bearer_contexts_to_create.0.bearer_qos.qci                        | {abotprop.SUT.3GPP.BEARER_QCI}             |
-      | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_ul            | {abotprop.SUT.MAX_BIT_RATE_UL}             |
-      | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_dl            | {abotprop.SUT.MAX_BIT_RATE_DL}             |
-      | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_ul     | {abotprop.SUT.GUARANTEED_BIT_RATE_UL}      |
-      | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_dl     | {abotprop.SUT.GUARANTEED_BIT_RATE_DL}      |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.interface_type | 4                                          |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv4_flag      | {abotprop.SUT.GTPV2.IPV4.PRES}             |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv6_flag      | {abotprop.SUT.GTPV2.IPV6.ABS}              |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.teid           | incr(1,8)                                  |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv4_add       | {abotprop.SUT.IPV4_ADDRESS}                |
-      | user_location_info.uli_flags                                      | 10                                         |
-      | user_location_info.ecgi.plmn_identity.mcc                         | {abotprop.SUT.MCC}                         |
-      | user_location_info.ecgi.plmn_identity.mnc                         | {abotprop.SUT.MNC}                         |
-      | user_location_info.ecgi.cell_id                                   | {abotprop.SUT.ECGI.CELL.ID1}               |
-      | user_location_info.tai.tac                                        | 12701                                      |
-      | user_location_info.tai.plmn_identity.mcc                          | {abotprop.SUT.MCC}                         |
-      | user_location_info.tai.plmn_identity.mnc                          | {abotprop.SUT.MNC}                         |
-      | pgw.fq_csid.node_id_type                                          | 0                                          |
-      | pgw.fq_csid.node_id                                               | {abotprop.SUT.IPV4_ADDRESS}                |
-      | pgw.fq_csid.csid                                                  | {abotprop.SUT.GTPV2.PGW.FQ.CSID}           |
+      | parameter                                                         | value                                     |
+      | header.message_type                                               | 32                                        |
+      | header.teid                                                       | 0                                         |
+      | header.seq_number                                                 | {abotprop.SUT.GTPV2.HEADER.SEQ.NUM.200}   |
+      | recovery                                                          | {abotprop.SUT.GTPV2.RECV.RESTART.COUNTER} |
+      | imsi                                                              | $(IMSI)                                   |
+      | msisdn                                                            | incr({abotprop.SUT.MSISDN.START},1)       |
+      | meid                                                              | incr(123456789012345,1)                   |
+      | serving_network.mcc                                               | {abotprop.SUT.MCC}                        |
+      | serving_network.mnc                                               | {abotprop.SUT.MNC}                        |
+      | rat_type                                                          | {abotprop.SUT.GTPV2.RAT.TYPE.EUTRAN}      |
+      | indication                                                        | {abotprop.SUT.GTPV2_INDICATION}           |
+      | sender_fteid_cntrl_plane.fq_teid.interface_type                   | 6                                         |
+      | sender_fteid_cntrl_plane.fq_teid.ipv4_flag                        | {abotprop.SUT.GTPV2.IPV4.PRES}            |
+      | sender_fteid_cntrl_plane.fq_teid.ipv6_flag                        | {abotprop.SUT.GTPV2.IPV6.ABS}             |
+      | sender_fteid_cntrl_plane.fq_teid.teid                             | incr(100,1)                               |
+      | sender_fteid_cntrl_plane.fq_teid.ipv4_add                         | {abotprop.SGW1.SecureShell.IPAddress}     |
+      | apn                                                               | {abotprop.SUT.3GPP.APN}                   |
+      | selection_mode                                                    | {abotprop.SUT.GTPV2.NET.PROV.APN.SNV}     |
+      | pdn_type                                                          | {abotprop.SUT.3GPP.PDN_TYPE}              |
+      | pdn_address_allocation.pdn_type                                   | {abotprop.SUT.3GPP.PDN_TYPE}              |
+      | pdn_address_allocation.pdn_address_and_prefix                     | {abotprop.SUT.PDN_ADDRESS}                |
+      | maxm_apn_restriction.apn_restriction_value                        | {abotprop.SUT.GTPV2.APN.REST.VALUE}       |
+      | ambr.apn_ambr_uplink                                              | {abotprop.SUT.MAX_BIT_RATE_UL}            |
+      | ambr.apn_ambr_downlink                                            | {abotprop.SUT.MAX_BIT_RATE_DL}            |
+      | linked.eps_bearer_id                                              | {abotprop.SUT.3GPP.LINKED.EPS_BEARER_ID1} |
+      | charging_char                                                     | {abotprop.SUT.3GPP.GTPV2C.CHARGING_CHAR}  |
+      | protocol_config_options                                           | {abotprop.SUT.GTPV2.PCO}                  |
+      | ue_timezone.time_zone                                             | {abotprop.SUT.GTPV2.UE.TIMEZONE}          |
+      | ue_timezone.daylight_saving_time                                  | {abotprop.SUT.UE.DAYLIGHT.SAVING.TIME}    |
+      | lapi                                                              | {abotprop.SUT.GTPV2.LAPI}                 |
+      | bearer_contexts_to_create.0.eps_bearer_id                         | {abotprop.SUT.EBI.0.EPS.BEAR.ID}          |
+      | bearer_contexts_to_create.0.bearer_qos.pvi                        | {abotprop.SUT.GTPV2.BEARER_QOS.PVI}       |
+      | bearer_contexts_to_create.0.bearer_qos.pl                         | {abotprop.SUT.GTPV2.PGW.BEARER_QOS.PL}    |
+      | bearer_contexts_to_create.0.bearer_qos.pci                        | {abotprop.SUT.GTPV2.BER.CTXT.QOS.PCI}     |
+      | bearer_contexts_to_create.0.bearer_qos.qci                        | {abotprop.SUT.3GPP.BEARER_QCI}            |
+      | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_ul            | {abotprop.SUT.MAX_BIT_RATE_UL}            |
+      | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_dl            | {abotprop.SUT.MAX_BIT_RATE_DL}            |
+      | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_ul     | {abotprop.SUT.GUARANTEED_BIT_RATE_UL}     |
+      | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_dl     | {abotprop.SUT.GUARANTEED_BIT_RATE_DL}     |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.interface_type | 4                                         |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv4_flag      | {abotprop.SUT.GTPV2.IPV4.PRES}            |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv6_flag      | {abotprop.SUT.GTPV2.IPV6.ABS}             |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.teid           | incr(1,8)                                 |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv4_add       | {abotprop.SUT.IPV4_ADDRESS}               |
+      | user_location_info.uli_flags                                      | 18                                        |
+      | user_location_info.ecgi.plmn_identity.mcc                         | {abotprop.SUT.MCC}                        |
+      | user_location_info.ecgi.plmn_identity.mnc                         | {abotprop.SUT.MNC}                        |
+      | user_location_info.ecgi.cell_id                                   | {abotprop.SUT.ECGI.CELL.ID1}              |
+      | user_location_info.tai.tac                                        | 12701                                     |
+      | user_location_info.tai.plmn_identity.mcc                          | {abotprop.SUT.MCC}                        |
+      | user_location_info.tai.plmn_identity.mnc                          | {abotprop.SUT.MNC}                        |
+      | fq_csid.node_id_type                                              | 0                                         |
+      | fq_csid.node_id                                                   | {abotprop.SUT.IPV4_ADDRESS}               |
+      | fq_csid.csid                                                      | {abotprop.SUT.GTPV2.PGW.FQ.CSID}          |
 
     Then I receive and validate GTPV2C message GTPV2C_CREATE_SESSION_REQUEST on interface S5-S8 with the following details on node PGW1 from SGW1:
-      | parameter                                                         | value                                                   |
-      | header.message_type                                               | {string:eq}(32)                                         |
-      | header.teid                                                       | {string:eq}(0)                                          |
-      | header.seq_number                                                 | {string:eq}({abotprop.SUT.GTPV2.HEADER.SEQ.NUM.200})    |
-      | recovery                                                          | {string:eq}({abotprop.SUT.GTPV2.RECV.RESTART.COUNTER})  |
-      | imsi                                                              | save(IMSI)                                              |
-      | msisdn                                                            | save(MSISDN)                                            |
-      | meid                                                              | save(MEID)                                              |
-      | serving_network.mcc                                               | {integer:eq}({abotprop.SUT.MCC})                        |
-      | serving_network.mnc                                               | {integer:eq}({abotprop.SUT.MNC})                        |
-      | rat_type                                                          | {string:eq}({abotprop.SUT.GTPV2.RAT.TYPE.EUTRAN})       |
-      | indication                                                        | {string:eq}({abotprop.SUT.GTPV2_INDICATION})            |
-      | sender_fteid_cntrl_plane.fq_teid.interface_type                   | {string:eq}(6)                                          |
-      | sender_fteid_cntrl_plane.fq_teid.ipv4_flag                        | {string:eq}({abotprop.SUT.GTPV2.IPV4.PRES})             |
-      | sender_fteid_cntrl_plane.fq_teid.ipv6_flag                        | {string:eq}({abotprop.SUT.GTPV2.IPV6.ABS})              |
-      | sender_fteid_cntrl_plane.fq_teid.teid                             | save(GTPV2C_HDR_DL_TEID_SGW_S5S8)                       |
-      | sender_fteid_cntrl_plane.fq_teid.ipv4_add                         | {string:eq}({abotprop.SUT.IPV4_ADDRESS})                |
-      | apn                                                               | {string:eq}({abotprop.SUT.3GPP.APN})                    |
-      | selection_mode                                                    | {string:eq}({abotprop.SUT.GTPV2.NET.PROV.APN.SNV})      |
-      | pdn_type                                                          | {string:eq}({abotprop.SUT.3GPP.PDN_TYPE})               |
-      | pdn_address_allocation.pdn_type                                   | {string:eq}({abotprop.SUT.3GPP.PDN_TYPE})               |
-      | pdn_address_allocation.pdn_address_and_prefix                     | {string:eq}({abotprop.SUT.PDN_ADDRESS})                 |
-      | maxm_apn_restriction.apn_restriction_value                        | {string:eq}({abotprop.SUT.GTPV2.APN.REST.VALUE.PUBLIC}) |
-      | ambr.apn_ambr_uplink                                              | {string:eq}({abotprop.SUT.MAX_BIT_RATE_UL})             |
-      | ambr.apn_ambr_downlink                                            | {string:eq}({abotprop.SUT.MAX_BIT_RATE_DL})             |
-      | linked.eps_bearer_id                                              | {string:eq}({abotprop.SUT.3GPP.LINKED.EPS_BEARER_ID1})  |
-      | charging_char                                                     | {string:eq}({abotprop.SUT.3GPP.GTPV2C.CHARGING_CHAR})   |
-      | protocol_config_options                                           | {string:eq}({abotprop.SUT.GTPV2.PCO})                   |
-      | ue_timezone.time_zone                                             | {string:eq}({abotprop.SUT.GTPV2.UE.TIMEZONE})           |
-      | ue_timezone.daylight_saving_time                                  | {string:eq}({abotprop.SUT.UE.DAYLIGHT.SAVING.TIME})     |
-      | lapi                                                              | {string:eq}({abotprop.SUT.GTPV2.LAPI})                  |
-      | bearer_contexts_to_create.0.eps_bearer_id                         | {string:eq}({abotprop.SUT.3GPP.EPS_BEARER_ID})          |
-      | bearer_contexts_to_create.0.bearer_qos.pvi                        | {string:eq}(0)                                          |
-      | bearer_contexts_to_create.0.bearer_qos.pl                         | {string:eq}(15)                                         |
-      | bearer_contexts_to_create.0.bearer_qos.pci                        | {string:eq}({abotprop.SUT.GTPV2.BER.CTXT.QOS.PCI})      |
-      | bearer_contexts_to_create.0.bearer_qos.qci                        | save(QCI)                                               |
-      | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_ul            | {string:eq}({abotprop.SUT.MAX_BIT_RATE_UL})             |
-      | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_dl            | {string:eq}({abotprop.SUT.MAX_BIT_RATE_DL})             |
-      | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_ul     | {string:eq}({abotprop.SUT.GUARANTEED_BIT_RATE_UL})      |
-      | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_dl     | {string:eq}({abotprop.SUT.GUARANTEED_BIT_RATE_DL})      |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.interface_type | {string:eq}(4)                                          |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv4_flag      | {string:eq}({abotprop.SUT.GTPV2.IPV4.PRES})             |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv6_flag      | {string:eq}({abotprop.SUT.GTPV2.IPV6.ABS})              |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.teid           | save(GTPV1U_DL_TEID_SGW_S5S8U)                          |
-      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv4_add       | {string:eq}({abotprop.SUT.IPV4_ADDRESS})                |
+      | parameter                                                         | value                                                  |
+      | header.message_type                                               | {string:eq}(32)                                        |
+      | header.teid                                                       | {string:eq}(0)                                         |
+      | header.seq_number                                                 | {string:eq}({abotprop.SUT.GTPV2.HEADER.SEQ.NUM.200})   |
+      | recovery                                                          | {string:eq}({abotprop.SUT.GTPV2.RECV.RESTART.COUNTER}) |
+      | imsi                                                              | save(IMSI)                                             |
+      | msisdn                                                            | save(MSISDN)                                           |
+      | meid                                                              | save(MEID)                                             |
+      | serving_network.mcc                                               | {integer:eq}({abotprop.SUT.MCC})                       |
+      | serving_network.mnc                                               | {integer:eq}({abotprop.SUT.MNC})                       |
+      | rat_type                                                          | {string:eq}({abotprop.SUT.GTPV2.RAT.TYPE.EUTRAN})      |
+      | indication                                                        | {string:eq}({abotprop.SUT.GTPV2_INDICATION})           |
+      | sender_fteid_cntrl_plane.fq_teid.interface_type                   | {string:eq}(6)                                         |
+      | sender_fteid_cntrl_plane.fq_teid.ipv4_flag                        | {string:eq}({abotprop.SUT.GTPV2.IPV4.PRES})            |
+      | sender_fteid_cntrl_plane.fq_teid.ipv6_flag                        | {string:eq}({abotprop.SUT.GTPV2.IPV6.ABS})             |
+      | sender_fteid_cntrl_plane.fq_teid.teid                             | save(GTPV2C_HDR_DL_TEID_SGW_S5S8)                      |
+      | sender_fteid_cntrl_plane.fq_teid.ipv4_add                         | {string:eq}({abotprop.SUT.IPV4_ADDRESS})               |
+      | apn                                                               | {string:eq}({abotprop.SUT.3GPP.APN})                   |
+      | selection_mode                                                    | {string:eq}({abotprop.SUT.GTPV2.NET.PROV.APN.SNV})     |
+      | pdn_type                                                          | {string:eq}({abotprop.SUT.3GPP.PDN_TYPE})              |
+      | pdn_address_allocation.pdn_type                                   | {string:eq}({abotprop.SUT.3GPP.PDN_TYPE})              |
+      | pdn_address_allocation.pdn_address_and_prefix                     | {string:eq}({abotprop.SUT.PDN_ADDRESS})                |
+      | maxm_apn_restriction.apn_restriction_value                        | {string:eq}({abotprop.SUT.GTPV2.APN.REST.VALUE})       |
+      | ambr.apn_ambr_uplink                                              | {string:eq}({abotprop.SUT.MAX_BIT_RATE_UL})            |
+      | ambr.apn_ambr_downlink                                            | {string:eq}({abotprop.SUT.MAX_BIT_RATE_DL})            |
+      | linked.eps_bearer_id                                              | {string:eq}({abotprop.SUT.3GPP.LINKED.EPS_BEARER_ID1}) |
+      | charging_char                                                     | {string:eq}({abotprop.SUT.3GPP.GTPV2C.CHARGING_CHAR})  |
+      | protocol_config_options                                           | {string:eq}({abotprop.SUT.GTPV2.PCO})                  |
+      | ue_timezone.time_zone                                             | {string:eq}({abotprop.SUT.GTPV2.UE.TIMEZONE})          |
+      | ue_timezone.daylight_saving_time                                  | {string:eq}({abotprop.SUT.UE.DAYLIGHT.SAVING.TIME})    |
+      | lapi                                                              | {string:eq}({abotprop.SUT.GTPV2.LAPI})                 |
+      | bearer_contexts_to_create.0.eps_bearer_id                         | {string:eq}({abotprop.SUT.3GPP.EPS_BEARER_ID})         |
+      | bearer_contexts_to_create.0.bearer_qos.pvi                        | {string:eq}(0)                                         |
+      | bearer_contexts_to_create.0.bearer_qos.pl                         | {string:eq}(15)                                        |
+      | bearer_contexts_to_create.0.bearer_qos.pci                        | {string:eq}({abotprop.SUT.GTPV2.BER.CTXT.QOS.PCI})     |
+      | bearer_contexts_to_create.0.bearer_qos.qci                        | save(QCI)                                              |
+      | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_ul            | {string:eq}({abotprop.SUT.MAX_BIT_RATE_UL})            |
+      | bearer_contexts_to_create.0.bearer_qos.max_bit_rate_dl            | {string:eq}({abotprop.SUT.MAX_BIT_RATE_DL})            |
+      | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_ul     | {string:eq}({abotprop.SUT.GUARANTEED_BIT_RATE_UL})     |
+      | bearer_contexts_to_create.0.bearer_qos.guaranteed_bit_rate_dl     | {string:eq}({abotprop.SUT.GUARANTEED_BIT_RATE_DL})     |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.interface_type | {string:eq}(4)                                         |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv4_flag      | {string:eq}({abotprop.SUT.GTPV2.IPV4.PRES})            |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv6_flag      | {string:eq}({abotprop.SUT.GTPV2.IPV6.ABS})             |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.teid           | save(GTPV1U_DL_TEID_SGW_S5S8U)                         |
+      | bearer_contexts_to_create.0.s5_or_s8_u_sgw.fq_teid.ipv4_add       | {string:eq}({abotprop.SUT.IPV4_ADDRESS})               |
 
     When I send DIAMETER message DIA_CREDIT_CONTROL_REQUEST on interface GX with the following details from node PGW1 to PCRF1:
       | parameter                            | value                                |
@@ -866,73 +866,73 @@ Feature: Attach procedure for EPS services
       | Called-Station-ID                    | {integer:eq}({abotprop.SUT.CALLED.STATION.ID})    |
 
     When I send DIAMETER message DIA_CREDIT_CONTROL_ANSWER on interface GX with the following details from node PCRF1 to PGW1:
-      | parameter                                                                           | value                                   |
-      | Hop-by-Hop Identifier                                                               | $(HOP_BY_HOP_ID)                        |
-      | End-to-End Identifier                                                               | $(END_TO_END_ID)                        |
-      | Session-Id                                                                          | $(DIA_SESS_ID_GX)                       |
-      | DRMP                                                                                | 1                                       |
-      | Auth-Application-Id                                                                 | 16777238                                |
-      | Origin-Host                                                                         | {abotprop.SUT.GX.CAPEX.ORIGIN.HOST}     |
-      | Origin-Realm                                                                        | {abotprop.SUT.GX.CAPEX.ORIGIN.REALM}    |
-      | Result-Code                                                                         | {abotprop.SUT.3GPP.S6A.DIA_RESULT_CODE} |
-      | Experimental-Result.Vendor-Id                                                       | 0                                       |
-      | Experimental-Result.Experimental-Result-Code                                        | 255                                     |
-      | CC-Request-Type                                                                     | 1                                       |
-      | CC-Request-Number                                                                   | 34                                      |
-      | IP-CAN-Type                                                                         | 5                                       |
-      | QoS-Information.QoS-Class-Identifier                                                | 9                                       |
-      | Charging-Rule-Install.Charging-Correlation-Indicator                                | 0                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Charging-Rule-Name                   | rule-1                                  |
-      | Charging-Rule-Install.Charging-Rule-Definition.Service-Identifier                   | 23                                      |
-      | Charging-Rule-Install.Charging-Rule-Definition.Rating-Group                         | {abotprop.SUT.GY.RATING.GROUP}          |
-      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.Flow-Description    | 3                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.ToS-Traffic-Class   | 2345                                    |
-      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.Packet-Filter-Usage | 1                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Status                          | 2                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Monitoring-Key                       | incr({abotprop.SUT.MONITORING.KEY},1)   |
-      | Charging-Rule-Install.Charging-Rule-Definition.QoS-Information.QoS-Class-Identifier | 2                                       |
+      | parameter                                                                                 | value                                   |
+      | Hop-by-Hop Identifier                                                                     | $(HOP_BY_HOP_ID)                        |
+      | End-to-End Identifier                                                                     | $(END_TO_END_ID)                        |
+      | Session-Id                                                                                | $(DIA_SESS_ID_GX)                       |
+      | DRMP                                                                                      | 1                                       |
+      | Auth-Application-Id                                                                       | 16777238                                |
+      | Origin-Host                                                                               | {abotprop.SUT.GX.CAPEX.ORIGIN.HOST}     |
+      | Origin-Realm                                                                              | {abotprop.SUT.GX.CAPEX.ORIGIN.REALM}    |
+      | Result-Code                                                                               | {abotprop.SUT.3GPP.S6A.DIA_RESULT_CODE} |
+      | Experimental-Result.Vendor-Id                                                             | 0                                       |
+      | Experimental-Result.Experimental-Result-Code                                              | 255                                     |
+      | CC-Request-Type                                                                           | 1                                       |
+      | CC-Request-Number                                                                         | 34                                      |
+      | IP-CAN-Type                                                                               | 5                                       |
+      | QoS-Information.QoS-Class-Identifier                                                      | 9                                       |
+      | Charging-Rule-Install.Charging-Correlation-Indicator                                      | 0                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Charging-Rule-Name                         | rule-1                                  |
+      | Charging-Rule-Install.Charging-Rule-Definition.Service-Identifier                         | 23                                      |
+      | Charging-Rule-Install.Charging-Rule-Definition.Rating-Group                               | {abotprop.SUT.GY.RATING.GROUP}          |
+      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.Flow-Description          | 3                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.ToS-Traffic-Class         | 2345                                    |
+      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.Packet-Filter-Usage       | 1                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Status                                | 2                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Monitoring-Key                             | incr({abotprop.SUT.MONITORING.KEY},1)   |
+      | Charging-Rule-Install.Charging-Rule-Definition.QoS-Information.QoS-Class-Identifier       | 2                                       |
       #| Charging-Rule-Install.Charging-Rule-Definition.QoS-Information.Max-Requested-Bandwidth-UL | 256000                                  |
       #| Charging-Rule-Install.Charging-Rule-Definition.QoS-Information.Max-Requested-Bandwidth-DL | 256000                                  |
-      | Charging-Rule-Install.Charging-Rule-Definition.Reporting-Level                      | {abotprop.SUT.GY.REPORTING.LEVEL}       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Online                               | 0                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Offline                              | 1                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Precedence                           | 1                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Metering-Method                      | 1                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Reporting-Level                            | {abotprop.SUT.GY.REPORTING.LEVEL}       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Online                                     | 0                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Offline                                    | 1                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Precedence                                 | 1                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Metering-Method                            | 1                                       |
 
     Then I receive and validate DIAMETER message DIA_CREDIT_CONTROL_ANSWER on interface GX with the following details on node PGW1 from PCRF1:
-      | parameter                                                                           | value                                                 |
-      | Hop-by-Hop Identifier                                                               | save(HOP_BY_HOP_ID)                                   |
-      | End-to-End Identifier                                                               | save(END_TO_END_ID)                                   |
-      | Session-Id                                                                          | save(DIA_SESS_ID_GX)                                  |
-      | DRMP                                                                                | {integer:eq}(1)                                       |
-      | Auth-Application-Id                                                                 | {integer:eq}(16777238)                                |
-      | Origin-Host                                                                         | {string:eq}({abotprop.SUT.GX.CAPEX.ORIGIN.HOST})      |
-      | Origin-Realm                                                                        | {string:eq}({abotprop.SUT.GX.CAPEX.ORIGIN.REALM})     |
-      | Result-Code                                                                         | {integer:eq}({abotprop.SUT.3GPP.S6A.DIA_RESULT_CODE}) |
-      | Experimental-Result.Vendor-Id                                                       | {integer:eq}(0)                                       |
-      | Experimental-Result.Experimental-Result-Code                                        | {integer:eq}(255)                                     |
-      | CC-Request-Type                                                                     | {integer:eq}(1)                                       |
-      | CC-Request-Type                                                                     | {integer:eq}(1)                                       |
-      | CC-Request-Number                                                                   | {integer:eq}(34)                                      |
-      | IP-CAN-Type                                                                         | {integer:eq}(5)                                       |
-      | QoS-Information.QoS-Class-Identifier                                                | {integer:eq}(9)                                       |
-      | Charging-Rule-Install.Charging-Correlation-Indicator                                | {integer:eq}(0)                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Charging-Rule-Name                   | {string:eq}(rule-1)                                   |
-      | Charging-Rule-Install.Charging-Rule-Definition.Service-Identifier                   | {integer:eq}(23)                                      |
-      | Charging-Rule-Install.Charging-Rule-Definition.Rating-Group                         | save(RATING_GROUP)                                    |
-      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.Flow-Description    | {string:eq}(3)                                        |
-      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.ToS-Traffic-Class   | {string:eq}(2345)                                     |
-      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.Packet-Filter-Usage | {integer:eq}(1)                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Status                          | {integer:eq}(2)                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Monitoring-Key                       | save(MONITORING_KEY)                                  |
-      | Charging-Rule-Install.Charging-Rule-Definition.QoS-Information.QoS-Class-Identifier | {integer:eq}(2)                                       |
+      | parameter                                                                                 | value                                                 |
+      | Hop-by-Hop Identifier                                                                     | save(HOP_BY_HOP_ID)                                   |
+      | End-to-End Identifier                                                                     | save(END_TO_END_ID)                                   |
+      | Session-Id                                                                                | save(DIA_SESS_ID_GX)                                  |
+      | DRMP                                                                                      | {integer:eq}(1)                                       |
+      | Auth-Application-Id                                                                       | {integer:eq}(16777238)                                |
+      | Origin-Host                                                                               | {string:eq}({abotprop.SUT.GX.CAPEX.ORIGIN.HOST})      |
+      | Origin-Realm                                                                              | {string:eq}({abotprop.SUT.GX.CAPEX.ORIGIN.REALM})     |
+      | Result-Code                                                                               | {integer:eq}({abotprop.SUT.3GPP.S6A.DIA_RESULT_CODE}) |
+      | Experimental-Result.Vendor-Id                                                             | {integer:eq}(0)                                       |
+      | Experimental-Result.Experimental-Result-Code                                              | {integer:eq}(255)                                     |
+      | CC-Request-Type                                                                           | {integer:eq}(1)                                       |
+      | CC-Request-Type                                                                           | {integer:eq}(1)                                       |
+      | CC-Request-Number                                                                         | {integer:eq}(34)                                      |
+      | IP-CAN-Type                                                                               | {integer:eq}(5)                                       |
+      | QoS-Information.QoS-Class-Identifier                                                      | {integer:eq}(9)                                       |
+      | Charging-Rule-Install.Charging-Correlation-Indicator                                      | {integer:eq}(0)                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Charging-Rule-Name                         | {string:eq}(rule-1)                                   |
+      | Charging-Rule-Install.Charging-Rule-Definition.Service-Identifier                         | {integer:eq}(23)                                      |
+      | Charging-Rule-Install.Charging-Rule-Definition.Rating-Group                               | save(RATING_GROUP)                                    |
+      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.Flow-Description          | {string:eq}(3)                                        |
+      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.ToS-Traffic-Class         | {string:eq}(2345)                                     |
+      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Information.Packet-Filter-Usage       | {integer:eq}(1)                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Flow-Status                                | {integer:eq}(2)                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Monitoring-Key                             | save(MONITORING_KEY)                                  |
+      | Charging-Rule-Install.Charging-Rule-Definition.QoS-Information.QoS-Class-Identifier       | {integer:eq}(2)                                       |
       #| Charging-Rule-Install.Charging-Rule-Definition.QoS-Information.Max-Requested-Bandwidth-UL | {integer:eq}(256000)                                  |
       #| Charging-Rule-Install.Charging-Rule-Definition.QoS-Information.Max-Requested-Bandwidth-DL | {integer:eq}(256000)                                  |
-      | Charging-Rule-Install.Charging-Rule-Definition.Reporting-Level                      | {integer:eq}({abotprop.SUT.GY.REPORTING.LEVEL})       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Online                               | {integer:eq}(0)                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Offline                              | {integer:eq}(1)                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Precedence                           | {integer:eq}(1)                                       |
-      | Charging-Rule-Install.Charging-Rule-Definition.Metering-Method                      | {integer:eq}(1)                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Reporting-Level                            | {integer:eq}({abotprop.SUT.GY.REPORTING.LEVEL})       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Online                                     | {integer:eq}(0)                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Offline                                    | {integer:eq}(1)                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Precedence                                 | {integer:eq}(1)                                       |
+      | Charging-Rule-Install.Charging-Rule-Definition.Metering-Method                            | {integer:eq}(1)                                       |
 
     When I send GTPV2C message GTPV2C_CREATE_SESSION_RESPONSE on interface S5-S8 with the following details from node PGW1 to SGW1:
       | parameter                                                       | value                                         |
@@ -948,7 +948,7 @@ Feature: Attach procedure for EPS services
       | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.ipv4_flag                 | {abotprop.SUT.GTPV2.IPV4.PRES}                |
       | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.ipv6_flag                 | {abotprop.SUT.GTPV2.IPV6.ABS}                 |
       | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.teid                      | incr(1,8)                                     |
-      | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.ipv4_add                  | {abotprop.SUT.IPV4_ADDRESS}                   |
+      | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.ipv4_add                  | {abotprop.PGW1.SecureShell.IPAddress}         |
       | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.ipv6_add                  | {abotprop.SUT.GTPV2.IPV6_ADDRESS}             |
       | pdn_address_allocation.pdn_type                                 | {abotprop.SUT.3GPP.PDN_TYPE}                  |
       | pdn_address_allocation.pdn_address_and_prefix                   | {abotprop.SUT.PDN_ADDRESS}                    |
@@ -974,11 +974,11 @@ Feature: Attach procedure for EPS services
       | bearer_contexts_created.0.bearer_qos.max_bit_rate_dl            | {abotprop.SUT.MAX_BIT_RATE_DL}                |
       | bearer_contexts_created.0.bearer_qos.guaranteed_bit_rate_ul     | {abotprop.SUT.GUARANTEED_BIT_RATE_UL}         |
       | bearer_contexts_created.0.bearer_qos.guaranteed_bit_rate_dl     | {abotprop.SUT.GUARANTEED_BIT_RATE_DL}         |
-      | bearer_contexts_created.0.charging_id                           | {abotprop.SUT.GTPV2.CHARG.ID.111}             |
+      | bearer_contexts_created.0.charging_id                           | {abotprop.SUT.GTPV2.CHARG.ID}                 |
       | bearer_contexts_created.0.bearer_flags                          | 1                                             |
       | recovery                                                        | {abotprop.SUT.GTPV2.RECV.RESTART.COUNTER}     |
       | charging_gateway_name.fqdn                                      | {abotprop.SUT.CHARGING_GATEWAY_DOMAIN}        |
-      | charging_id                                                     | {abotprop.SUT.GTPV2.CHARG.ID.111}             |
+      | charging_id                                                     | {abotprop.SUT.GTPV2.CHARG.ID}                 |
       | pgw.fq_csid.node_id_type                                        | 0                                             |
       | pgw.fq_csid.node_id                                             | {abotprop.SUT.IPV4_ADDRESS}                   |
       | pgw.fq_csid.csid                                                | {abotprop.SUT.GTPV2.PGW.FQ.CSID}              |
@@ -1002,13 +1002,13 @@ Feature: Attach procedure for EPS services
       | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.interface_type            | {string:eq}(7)                                           |
       | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.ipv6_flag                 | {string:eq}({abotprop.SUT.GTPV2.IPV6.ABS})               |
       | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.teid                      | save(GTPV2C_HDR_UL_TEID_PGW_S5S8)                        |
-      | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.ipv4_add                  | {string:eq}({abotprop.SUT.IPV4_ADDRESS})                 |
+      | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.ipv4_add                  | {string:eq}({abotprop.PGW1.SecureShell.IPAddress})       |
       | pgw_s5_s8_s2b_gtp_cntrl_plane.fq_teid.ipv6_add                  | {string:eq}({abotprop.SUT.GTPV2.IPV6_ADDRESS})           |
-      | protocol_config_options                                         | {string:eq}({abotprop.SUT.GTPV2.PCO})                    |
+      | protocol_config_options                                         | save(GTPV2_PCO)                                          |
       | recovery                                                        | {string:eq}({abotprop.SUT.GTPV2.RECV.RESTART.COUNTER})   |
       | charging_gateway_name.fqdn                                      | {string:eq}({abotprop.SUT.CHARGING_GATEWAY_DOMAIN})      |
       | indication                                                      | {string:eq}({abotprop.SUT.GTPV2_INDICATION})             |
-      | charging_id                                                     | {string:eq}({abotprop.SUT.GTPV2.CHARG.ID.111})           |
+      | charging_id                                                     | save(GTPV2_CHARG_ID)                                     |
       | bearer_contexts_created.0.eps_bearer_id                         | {string:eq}({abotprop.SUT.3GPP.EPS_BEARER_ID})           |
       | bearer_contexts_created.0.cause.cause_value                     | {string:eq}({abotprop.SUT.CAUSE.VALUE.REQUEST_ACCEPTED}) |
       | bearer_contexts_created.0.cause.cause_flags                     | {string:eq}({abotprop.SUT.CAUSE.CAUSE_FLAGS})            |
@@ -1020,7 +1020,7 @@ Feature: Attach procedure for EPS services
       | bearer_contexts_created.0.bearer_qos.max_bit_rate_dl            | {string:eq}({abotprop.SUT.MAX_BIT_RATE_DL})              |
       | bearer_contexts_created.0.bearer_qos.guaranteed_bit_rate_ul     | {string:eq}({abotprop.SUT.GUARANTEED_BIT_RATE_UL})       |
       | bearer_contexts_created.0.bearer_qos.guaranteed_bit_rate_dl     | {string:eq}({abotprop.SUT.GUARANTEED_BIT_RATE_DL})       |
-      | bearer_contexts_created.0.charging_id                           | {string:eq}({abotprop.SUT.GTPV2.CHARG.ID.111})           |
+      | bearer_contexts_created.0.charging_id                           | save(GTPV2_CHARG_ID)                                     |
       | bearer_contexts_created.0.bearer_flags                          | {string:eq}({abotprop.SUT.GTPV2.BEARER_FLAGS})           |
       | bearer_contexts_created.0.s5_or_s8_u_pgw.fq_teid.interface_type | {string:eq}(5)                                           |
       | bearer_contexts_created.0.s5_or_s8_u_pgw.fq_teid.ipv4_flag      | {string:eq}(1)                                           |
@@ -1035,7 +1035,7 @@ Feature: Attach procedure for EPS services
       | header.seq_number                                           | 100                                        |
       | cause.cause_value                                           | 16                                         |
       | cause.cause_flags                                           | 0                                          |
-      | change_reporting_actn                                       | 6                                          |
+      | change_reporting_actn                                       | 0                                          |
       | csg_information_reporting_action.csg_info                   | 1                                          |
       | henb_info_reporting                                         | 1                                          |
       | sender_fteid_cntrl_plane.fq_teid.interface_type             | 11                                         |
@@ -1101,7 +1101,7 @@ Feature: Attach procedure for EPS services
       | header.seq_number                                           | {string:eq}(100)                                        |
       | cause.cause_value                                           | {string:eq}(16)                                         |
       | cause.cause_flags                                           | {string:eq}(0)                                          |
-      | change_reporting_actn                                       | {string:eq}(6)                                          |
+      | change_reporting_actn                                       | {string:eq}(0)                                          |
       | csg_information_reporting_action.csg_info                   | {string:eq}(1)                                          |
       | pdn_address_allocation.pdn_type                             | {string:eq}({abotprop.SUT.3GPP.PDN_TYPE})               |
       | pdn_address_allocation.pdn_address_and_prefix               | {string:eq}({abotprop.SUT.PDN_ADDRESS})                 |
