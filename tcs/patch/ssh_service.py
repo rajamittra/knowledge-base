@@ -431,25 +431,28 @@ def trim_sut_log(execution_start_time, execution_end_time, filePath, vendor_type
     with open(filePath, 'w+') as f:
         trimmed_log = []        
         for i in range(len(log_lines)-1, -1, -1):
-            for pattern in SUT_LOG_DATE_Patterns:
-                #search_pattern = next(iter(pattern))
-                search_pattern = pattern.split(',')[0]
-                #datetime_pattern = pattern[search_pattern]               
-                datetime_pattern = pattern.split(',')[1].replace('\s', ' ').replace('%%', '%')
-                if(re.search(search_pattern, log_lines[i])):
-                    date_time_stamp = re.search(search_pattern, log_lines[i]).group(0)[:26]
-                    try:
-                        if not '%Y' in datetime_pattern:
-                            date_time_stamp = str(execution_start_time.year) + '/' + date_time_stamp
-                            date_time_stamp = datetime.datetime.strptime(date_time_stamp, '%Y/' + datetime_pattern)
-                        else:
-                            date_time_stamp = datetime.datetime.strptime(date_time_stamp, datetime_pattern)
-                    #date_time_stamp = datetime.datetime.strftime(date_time_stamp, common_datetime_pattern)
-                        if date_time_stamp >= execution_start_time:
-                            trimmed_log.append(log_lines[i])
-                    except Exception as e:
-                        pass
-                    break
+            try:
+                for pattern in SUT_LOG_DATE_Patterns:
+                    #search_pattern = next(iter(pattern))
+                    search_pattern = pattern.split(',')[0]
+                    #datetime_pattern = pattern[search_pattern]               
+                    datetime_pattern = pattern.split(',')[1].replace('\s', ' ').replace('%%', '%')
+                    if(re.search(search_pattern, log_lines[i])):
+                        date_time_stamp = re.search(search_pattern, log_lines[i]).group(0)[:26]
+                        try:
+                            if not '%Y' in datetime_pattern:
+                                date_time_stamp = str(execution_start_time.year) + '/' + date_time_stamp
+                                date_time_stamp = datetime.datetime.strptime(date_time_stamp, '%Y/' + datetime_pattern)
+                            else:
+                                date_time_stamp = datetime.datetime.strptime(date_time_stamp, datetime_pattern)
+                        #date_time_stamp = datetime.datetime.strftime(date_time_stamp, common_datetime_pattern)
+                            if date_time_stamp >= execution_start_time:
+                                trimmed_log.append(log_lines[i])
+                        except Exception as e:
+                            pass
+                        break
+            except:
+                pass
         
         for i in range(len(trimmed_log)-1, -1, -1):
             f.write(str(trimmed_log[i]))
@@ -535,23 +538,24 @@ def abot_stop_packet_capture_at_vendor_node():
     for node in capture_started_nodes:
         try:
             cmd = config.abot_get_str(node + '.' + constants.PCAP_EXTRACTION_CMD).split(';')[1]
-            stdin, stdout, stderr = ssh_cache.SSH_SUT_PCAP_SERVER_CONN[node].exec_command(cmd, get_pty=True)
+            stdin, stdout, stderr = ssh_cache.SSH_SUT_PCAP_SERVER_CONN[node].exec_command(cmd, get_pty=True, timeout=10)
             
             if sut_pcap_node_password[node] is not None:
                 stdin.write(sut_pcap_node_password[node] + '\n')
                 stdin.flush()
             
             logger.log().info("Packet capture stopped at node {}".format(node))
-            force_kill_tcpdump(node)
-        except:
+
+        except Exception as e:
+            logger.log().debug(str(e))
             force_kill_tcpdump(node)
 
 def force_kill_tcpdump(node):
     if config.abot_get_str(node + '.' + constants.PCAP_EXTRACTION_USERNAME) == 'root':
-        stdin, stdout, stderr = ssh_cache.SSH_SUT_PCAP_SERVER_CONN[node].exec_command('pkill tcpdump', get_pty=True)
+        stdin, stdout, stderr = ssh_cache.SSH_SUT_PCAP_SERVER_CONN[node].exec_command('pkill tcpdump', get_pty=True, timeout=10)
 
     else:
-        stdin, stdout, stderr = ssh_cache.SSH_SUT_PCAP_SERVER_CONN[node].exec_command('sudo pkill tcpdump', get_pty=True)
+        stdin, stdout, stderr = ssh_cache.SSH_SUT_PCAP_SERVER_CONN[node].exec_command('sudo pkill tcpdump', get_pty=True, timeout=10)
     
     if sut_pcap_node_password[node] is not None:
         stdin.write(sut_pcap_node_password[node] + '\n')
